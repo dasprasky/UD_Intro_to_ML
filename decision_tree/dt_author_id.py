@@ -12,7 +12,7 @@ import sys
 from time import time
 sys.path.append("../tools/")
 from email_preprocess import preprocess
-
+from sklearn import tree
 
 ### features_train and features_test are the features for the training
 ### and testing datasets, respectively
@@ -20,12 +20,17 @@ from email_preprocess import preprocess
 features_train, features_test, labels_train, labels_test = preprocess()
 
 
-
-
 #########################################################
 ### your code goes here ###
+clf=tree.DecisionTreeClassifier(min_samples_split=40)
+clf = clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
 
+acc = clf.score(features_test, labels_test)
 
+print 'The accuracy of the DT is ', acc
+
+print 'Number of features in the data is', len(features_train[1])
 #########################################################
 
 
